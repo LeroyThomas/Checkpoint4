@@ -4,14 +4,14 @@
 
 {% block body %}
     <nav class="navbar navbar-expand-lg navbar-light bg-vert">
-        <img src="{{ asset('build/images/logoAmphore.svg') }}" width="100px" height="74px" alt="logo"/></a>
+        <img src="{{ asset('build/images/logoAmphore.svg') }}" width="100px" height="74px" alt="logo"/>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item ">
-                    <a class="nav-link" href="path{{ 'home' }}">Home </a>
+                    <a class="nav-link" href="{{ path('home') }}">Home </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Lieux<span class="sr-only">(current)</span></a>
@@ -31,15 +31,15 @@
 
     <h1>Lieux Incroyables</h1>
         {% for place in places %}
-            <div class="card" style="width: 18rem;">
+            <div class="card" id="listPlaces" style="width: 18rem;">
                 <div class="card-body" id="cardPictureText">
                     <h5 class="card-title">{{ place.title }}</h5>
                     <img class="card-img-top" src="{{ place.picture }}" alt="Card image cap">
-                    <div class="card-body.">
+                    <div class="card-body">
                         <p class="card-text">{{ place.description }}</p>
                     </div>
-                </div>
                     <a href="#" class="btn btn-orange">En savoir plus</a>
+                </div>
             </div>
         {% endfor %}
 {% endblock %}

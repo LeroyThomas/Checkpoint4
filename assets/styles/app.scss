@@ -2,7 +2,19 @@
 @import '~bootstrap/scss/bootstrap';
 
 body {
-    background-color: lightgray;
+    background-color: #edf6f9;
 }
+h1 {
+    text-align: center;
+}
+
+#listPlaces {
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#cardPictureText {
+}
+
 
 
