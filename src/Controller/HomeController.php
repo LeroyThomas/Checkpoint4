@@ -11,6 +11,8 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
