@@ -76,7 +76,12 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="user", cascade={"persist", "remove"})
      * @var Profil
      */
-    private $profil;
+    private $profil ;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $citation;
 
     public function __construct()
     {
@@ -292,6 +297,18 @@ public function setProfil(?Profil $profil): self
     if ($profil->getUser() !== $this) {
         $profil->setUser($this);
     }
+    return $this;
+}
+
+public function getCitation(): ?string
+{
+    return $this->citation;
+}
+
+public function setCitation(?string $citation): self
+{
+    $this->citation = $citation;
+
     return $this;
 }
 

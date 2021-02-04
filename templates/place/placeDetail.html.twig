@@ -14,7 +14,7 @@
                     <a class="nav-link" href="{{ path('home') }}">Home </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Lieux<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ path('place_index') }}">Lieux<span class="sr-only">(current)</span></a>
                 </li>
                 {% if app.user %}
                     <li class="nav-item dropdown">
@@ -33,9 +33,14 @@
     </nav>
 
     <div class="media">
-        <img class="align-self-start mr-3 film-poster" src="{{ place.picture }}" alt="{{ place.title }} poster">
-        <div class="media-body">
-            <h2 class="mt-0">  {{ place.title }} </h2>
+        <div class="card" style="width: 40rem;">
+            <img class="align-self-start mr-3 film-poster" src="{{ place.picture }}" alt="{{ place.title }} " style="max-width: 635px">
+            <div class="card-body">
+                <p class="card-text">{{ place.description}}</p>
+            </div>
+            <div class="media-body">
+                <h2 class="mt-0">  {{ place.title }} </h2>
+            </div>
         </div>
 
     <div class="media-body">

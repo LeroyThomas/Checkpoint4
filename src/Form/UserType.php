@@ -2,8 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Profil;
 use App\Entity\User;
+use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,8 +17,9 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('password')
-//            ->add('profil')
+            ->add('password', PasswordType::class )
+            ->add('pseudo')
+            ->add('citation')
         ;
     }
 

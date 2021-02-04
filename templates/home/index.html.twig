@@ -36,28 +36,50 @@
 
 
     {% if app.user %}
-
-        <h4>Bienvenue met toi à l'aise</h4>
-        <a id="button" class="btn btn-jaune" class="nav-link" href="{{ path('profil_new') }}">Personnalise ton Profil</a>
-
+        <div class="welcome">
+            <h4>Bienvenue <strong>{{ app.user.pseudo }}</strong>, met toi à l'aise</h4>
+{#            <a class="btn btn-yellow" href="{{ path('profil_new') }}">Personnalise ton Profil</a>#}
+            <div class="citation">
+                <blockquote class="blockquote mb-0">
+                    <p>{{ app.user.citation }}</p>
+                    <footer class="blockquote-footer">{{ app.user.pseudo }} <cite title="Source Title">The manual</cite></footer>
+                </blockquote>
+            </div>
+        </div>
     {% else %}
         {% include '/security/login.html.twig' %}
     {% endif %}
 
-    {% if profil.pseudo %}
-        <div class="card">
+{#    {% if profil.pseudo %}#}
+{#        <div class="card" id="presentationProfil">#}
+{#            <div style="width: 18rem;">#}
+{#                <img class="card-img-top" src="{{ asset('uploads/images/'~profil.image) }}" alt="Card image cap">#}
+{#            </div>#}
 
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{ asset('uploads/images/'~profil.image) }}" alt="Card image cap">
-            </div>
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>{{ profil.citation }}</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-            </div>
+{#            <div class="citation">#}
+{#                <blockquote class="blockquote mb-0">#}
+{#                    <p>{{ profil.citation }}</p>#}
+{#                    <footer class="blockquote-footer">{{ profil.pseudo }} <cite title="Source Title">The manual</cite></footer>#}
+{#                </blockquote>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+    <hr>
+
+        <div class="carte" style="background-image:url('{{asset('build/images/carte.jpg')}}')">
+{#            {% for place in places %}#}
+                <div id="button1">
+                    <a href="{{ path('place_show' , {'id': 9}) }}" class="btn btn-rouge">Acropole</a>
+                </div>
+                <div id="button2">
+                    <a href="{{ path('place_show' , {'id': 10}) }}" class="btn btn-rouge">Erechthéion</a>
+                </div>
+                <div id="button3">
+                    <a href="{{ path('place_show' , {'id': 11}) }}" class="btn btn-rouge">Parthénon</a>
+                </div>
+                <div id="button4">
+                    <a href="{{ path('place_show' , {'id': 12}) }}" class="btn btn-rouge">Sparte</a>
+                </div>
         </div>
-    {% endif %}
-    {#    {% include '/registration/new.html.twig' %}#}
 
 {% endblock %}

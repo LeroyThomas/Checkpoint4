@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Profil;
 use App\Form\UserType;
+use App\Repository\PlaceRepository;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,18 +22,17 @@ class HomeController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param GuardAuthenticatorHandler $guardAuthenticatorHandler
-     * @param LoginFormAuthenticator $authenticator
+     * @param PlaceRepository $placeRepository
      * @return Response
      */
     public function index(
         AuthenticationUtils $authenticationUtils,
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        GuardAuthenticatorHandler $guardAuthenticatorHandler,
-        LoginFormAuthenticator $authenticator): Response
+        PlaceRepository $placeRepository
+        ): Response
     {
-        $profil= $this->getUser()->getProfil();
+        $places = $placeRepository->findAll();
 
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -56,12 +56,16 @@ class HomeController extends AbstractController
             $entityManager->flush();
 
         }
+//        $profil= $this->getUser()->getProfil();
+
+
 
         return $this->render('home/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
             "form" => $form->createView(),
-            'profil' => $profil,
+            'places' => $places,
+//            'profil' => $profil,
         ]);
     }
 

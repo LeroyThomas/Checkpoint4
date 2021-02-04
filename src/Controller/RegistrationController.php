@@ -3,7 +3,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Profil;
 use App\Entity\User;
+use App\Form\ProfilType;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +36,11 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+//        $profil = new Profil();
+//        $profil->setUser($this->getUser());
+//
+//        $form = $this->createForm(ProfilType::class, $profil);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
@@ -56,6 +63,20 @@ class RegistrationController extends AbstractController
             );
         }
 
+//        $profil = new Profil();
+//        $profil->setUser($this->getUser());
+//
+//        $form = $this->createForm(ProfilType::class, $profil);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($profil);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('home');
+//        }
+//
         return $this->render('registration/new.html.twig', [
             "form" => $form->createView(),
         ]);

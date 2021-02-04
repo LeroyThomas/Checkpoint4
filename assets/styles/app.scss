@@ -24,6 +24,59 @@ h1 {
         height: 40em;
     }
 
+    #presentationProfil {
+        display: flex;
+        flex-direction: row;
+        width: fit-content;
+        margin: auto;
+    }
+
+    .citation {
+        padding-right: 10px;
+    }
+
+    .welcome {
+        padding-left: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #titleConnect {
+        text-align: center;
+    }
+
+    .formInscription {
+        width: 50%;
+        margin: auto;
+        padding-top: 60px;
+    }
+
+    .carte {
+        margin: auto;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 900px;
+        display: flex;
+        margin-left: 500px;
+        justify-content: space-around;
+    }
+
+    #button1 {
+        margin-top: 300px;
+    }
+
+    #button2 {
+        margin-top: 550px;
+    }
+
+    #button3 {
+        margin-top: 490px;
+    }
+
+    #button4 {
+        margin-top: 720px;
+    }
+
 }
 
 
