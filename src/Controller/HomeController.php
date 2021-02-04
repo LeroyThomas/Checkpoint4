@@ -35,35 +35,35 @@ class HomeController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-            $user->setRoles(['ROLE_CONTRIBUTOR']);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main'
-            );
-        }
+//        $user = new User();
+//        $form = $this->createForm(UserType::class, $user);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $user->setPassword(
+//                $passwordEncoder->encodePassword(
+//                    $user,
+//                    $form->get('password')->getData()
+//                )
+//            );
+//            $user->setRoles(['ROLE_CONTRIBUTOR']);
+//
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($user);
+//            $entityManager->flush();
+//
+//            return $guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
+//                $user,
+//                $request,
+//                $authenticator,
+//                'main'
+//            );
+//        }
 
         return $this->render('home/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            "form" => $form->createView(),
+//            "form" => $form->createView(),
         ]);
     }
 }

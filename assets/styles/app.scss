@@ -8,13 +8,24 @@ h1 {
     text-align: center;
 }
 
-#listPlaces {
+#place {
     margin: auto;
     margin-bottom: 10px;
 }
 
-#cardPictureText {
+@media (min-width: 768px) {
+
+    .listPlaces {
+        display: flex;
+    }
+
+    #place {
+        width: 30em;
+        height: 40em;
+    }
+
 }
+
 
 
 

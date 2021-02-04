@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 //use Vich\UploaderBundle\Entity\File;
 use Symfony\Component\HttpFoundation\File\File;
@@ -19,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\Ignore;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, Serializable
 {
     /**
      * @ORM\Id
@@ -245,6 +246,17 @@ class User implements UserInterface
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        $this->profileImage = base64_encode($this->imageFile);
+    }
+
+    public function unserialize($serialized)
+    {
+        $this->profileImage = base64_decode($this->imageFile);
+
     }
 
 }

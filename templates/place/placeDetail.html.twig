@@ -31,19 +31,20 @@
             </ul>
         </div>
     </nav>
-    <h1>Lieux Incroyables</h1>
-    <div class="listPlaces">
-        {% for place in places %}
-            <div class="card " id="place" style="width: 18rem;">
-                <div class="card-body" id="cardPictureText">
-                    <h5 class="card-title">{{ place.title }}</h5>
-                    <img class="card-img-top" src="{{ place.picture }}" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">{{ place.description }}</p>
-                    </div>
-                    <a href="{{ path('place_show' , {'id': place.id}) }}" class="btn btn-orange">En savoir plus</a>
-                </div>
-            </div>
-        {% endfor %}
+
+    <div class="media">
+        <img class="align-self-start mr-3 film-poster" src="{{ place.picture }}" alt="{{ place.title }} poster">
+        <div class="media-body">
+            <h2 class="mt-0">  {{ place.title }} </h2>
+        </div>
+
+    <div class="media-body">
+        <br>
+        <h5>Ajouter un commentaire :</h5>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-lg btn-orange">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
     </div>
 {% endblock %}
