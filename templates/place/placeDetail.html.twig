@@ -35,21 +35,35 @@
     <div class="media">
         <div class="card" style="width: 40rem;">
             <img class="align-self-start mr-3 film-poster" src="{{ place.picture }}" alt="{{ place.title }} " style="max-width: 635px">
-            <div class="card-body">
-                <p class="card-text">{{ place.description}}</p>
-            </div>
             <div class="media-body">
                 <h2 class="mt-0">  {{ place.title }} </h2>
             </div>
-        </div>
+            <div class="card-body">
+                <p class="card-text">{{ place.description}}</p>
+            </div>
 
-    <div class="media-body">
-        <br>
-        <h5>Ajouter un commentaire :</h5>
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-lg btn-orange">{{ button_label|default('Save') }}</button>
-        {{ form_end(form) }}
+        </div>
+    <div class="comment">
+        <div class="media-body" id="addComment">
+            <br>
+
+            {{ form_start(form) }}
+            {{ form_row(form.text, {'label': 'Ajouter un Commentaire', 'placeholder':'Ici , la'}) }}
+            <button class="btn btn-lg btn-orange">{{ button_label|default('Publie') }}</button>
+            {{ form_end(form) }}
+        </div>
+        <div id="commentShow">
+        {% for comment in place.comments|reverse %}
+            <div class="card" id="commentUnit">
+                <div class="textComment">
+                    <p> {{ comment.text }} </p>
+                </div>
+                <div class="authorComment">
+                    <h5>Auteur : {{ app.user.pseudo }}</h5>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
     </div>
-    </div>
+</div>
 {% endblock %}

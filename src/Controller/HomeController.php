@@ -32,6 +32,10 @@ class HomeController extends AbstractController
         PlaceRepository $placeRepository
         ): Response
     {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
+
         $places = $placeRepository->findAll();
 
         $error = $authenticationUtils->getLastAuthenticationError();

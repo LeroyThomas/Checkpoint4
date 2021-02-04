@@ -63,19 +63,54 @@ h1 {
 
     #button1 {
         margin-top: 300px;
+        margin-right: 50px;
     }
 
     #button2 {
         margin-top: 550px;
+        margin-right: 70px;
+
     }
 
     #button3 {
         margin-top: 490px;
+        margin-right: 90px;
+
     }
 
     #button4 {
         margin-top: 720px;
+        margin-right: 600px;
+
     }
+
+    #commentShow {
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .comment {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin-left: 10px;
+    }
+
+    #commentUnit {
+        margin-bottom: 30px;
+    }
+
+    .authorComment {
+        text-align: end;
+    }
+
+    #addComment {
+        margin-bottom: 100px;
+    }
+
+
 
 }
 
