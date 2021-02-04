@@ -7,11 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Entity\File;
+//use Vich\UploaderBundle\Entity\File;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
-
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 
 /**
@@ -60,24 +61,18 @@ class User implements UserInterface
 
     /**
      * @Vich\UploadableField(mapping="user_images", fileNameProperty="image")
-     * @Assert\File(
-     * maxSize="2M",
-     * maxSizeMessage="Le fichier excède 2Mo.",
-     * mimeTypes={"image/png", "image/jpeg", "image/jpg"},
-     * mimeTypesMessage= "formats autorisés: png, jpeg, jpg"
-     * )
+     * @var File|null
      */
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
 
     public function __construct()
     {
         $this->userComments = new ArrayCollection();
-        $this->contributors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,11 +195,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getImage(): ?string
     {
         return $this->image;
     }
 
+    /**
+     * @param string|null $image
+     * @return $this
+     */
     public function setImage(?string $image): self
     {
         $this->image = $image;
@@ -212,17 +214,26 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return File|null
+     * @Ignore()
+     */
     public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    public function setImageFile(File $imageFile = null):User
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
         if ($imageFile) {
-            $this->updatedAt = new DateTime('now');
-        }    }
+            $this->createdAt = new DateTime('now');
+        }
+
+    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -235,6 +246,5 @@ class User implements UserInterface
 
         return $this;
     }
-
 
 }

@@ -3,5 +3,7 @@ vich_uploader:
 
     mappings:
         user_images:
-            uri_prefix: /images/users
+            uri_prefix: /uploads/images
             upload_destination: '%upload_directory%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
