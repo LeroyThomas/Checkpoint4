@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Profil;
 use App\Form\UserType;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,8 @@ class HomeController extends AbstractController
         GuardAuthenticatorHandler $guardAuthenticatorHandler,
         LoginFormAuthenticator $authenticator): Response
     {
+        $profil= $this->getUser()->getProfil();
+
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -58,6 +61,7 @@ class HomeController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
             "form" => $form->createView(),
+            'profil' => $profil,
         ]);
     }
 
@@ -68,4 +72,6 @@ class HomeController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+
 }

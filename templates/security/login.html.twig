@@ -10,9 +10,9 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            You are logged in as {{ app.user.username }}
         </div>
-    {% else %}
+    {% endif %}
 
     <h1 class="h3 mb-3 font-weight-normal">Connecte toi Stp</h1>
     <label for="inputEmail">Email</label>
@@ -27,6 +27,5 @@
         Sign in
     </button>
         <a class="dropdown-item" href="{{ path('new') }}">New around here? Sign up</a>
-    {% endif %}
 </form>
 {% endblock %}

@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @Vich\Uploadable
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -71,6 +71,12 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="user", cascade={"persist", "remove"})
+     * @var Profil
+     */
+    private $profil;
 
     public function __construct()
     {
@@ -251,46 +257,42 @@ class User implements UserInterface, \Serializable
 
 //    public function serialize()
 //    {
-//        return \json_encode([
-//            $this->id]);
-//            'email' => $this->email,
-//            'password' => $this->password,
-//            'pseudo' => $this->pseudo,
-//            'image' => $this->image,
-//            'imageFile' => $this->imageFile,
-//            'createdAt' => $this->createdAt,
-//            'userComments' => $this->userComments,
-//            'roles' => $this->roles,
-
-
-
-
-//        'id' => $this->id,
-//            'email' => $this->email,
-//            'password' => $this->password,
-//            'pseudo' => $this->pseudo,
-//            'image' => $this->image,
-//            'imageFile' => $this->imageFile,
-//            'createdAt' => $this->createdAt,
-//            'userComments' => $this->userComments,
-//            'roles' => $this->roles,
-
+//       return serialize(array(
+//            $this->id,
+//            $this->email,
+//            $this->password,
+//            $this->pseudo,
+//            $this->image,
+//            $this->imageFile,
+//            $this->createdAt,
+//            $this->userComments,
+//            $this->roles,
+////           $this->salt,
+//    ));
 //    }
 //
 //    public function unserialize($serialized)
 //    {
-//        $this->id = $serialized['id'];
-//        $this->email = $serialized['email'];
-//        $this->password = $serialized['password'];
-//        $this->pseudo = $serialized['pseudo'];
-//        $this->image = $serialized['image'];
-//        $this->imageFile = $serialized['imageFile'];
-//        $this->createdAt = $serialized['createdAt'];
-//        $this->userComments = $serialized['userComments'];
-//        $this->roles = $serialized['roles'];
+//        list (
+//        $this->id,
+//        $this->email,
+//        $this->password,
 //
-//        return $this;
-//        list($this->id) = \json_decode($serialized);
+//            ) = $this->unserialize($serialized, array('allowed_classes' => false));
 //    }
+
+public function getProfil(): ?Profil
+{
+    return $this->profil;
+}
+
+public function setProfil(?Profil $profil): self
+{
+    $this->profil = $profil;
+    if ($profil->getUser() !== $this) {
+        $profil->setUser($this);
+    }
+    return $this;
+}
 
 }
