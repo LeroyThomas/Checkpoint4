@@ -5,6 +5,7 @@ security:
 
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    enable_authenticator_manager: true
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
@@ -17,7 +18,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            anonymous: false
             lazy: true
             provider: app_user_provider
             guard:

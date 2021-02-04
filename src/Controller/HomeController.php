@@ -31,9 +31,9 @@ class HomeController extends AbstractController
         GuardAuthenticatorHandler $guardAuthenticatorHandler,
         LoginFormAuthenticator $authenticator): Response
     {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+//        $error = $authenticationUtils->getLastAuthenticationError();
+//        // last username entered by the user
+//        $lastUsername = $authenticationUtils->getLastUsername();
 
 //        $user = new User();
 //        $form = $this->createForm(UserType::class, $user);
@@ -61,8 +61,8 @@ class HomeController extends AbstractController
 //        }
 
         return $this->render('home/index.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
+//            'last_username' => $lastUsername,
+//            'error' => $error,
 //            "form" => $form->createView(),
         ]);
     }
