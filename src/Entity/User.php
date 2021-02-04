@@ -14,13 +14,14 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -248,31 +249,48 @@ class User implements UserInterface
         return $this;
     }
 
-    public function serialize(): array
-    {
-        return [
-            'id' => $this->id,
-            'email' => $this->email,
-            'password' => $this->password,
-            'pseudo' => $this->pseudo,
-            'image' => $this->image,
-            'imageFile' => $this->imageFile,
-            'createdAt' => $this->createdAt
-        ];
-    }
-
-    public function unserialize($serialized)
-    {
-        $this->id = $serialized['id'];
-        $this->email = $serialized['email'];
-        $this->password = $serialized['password'];
-        $this->pseudo = $serialized['pseudo'];
-        $this->image = $serialized['image'];
-        $this->imageFile = $serialized['imageFile'];
-        $this->createdAt = $serialized['createdAt'];
+//    public function serialize()
+//    {
+//        return \json_encode([
+//            $this->id]);
+//            'email' => $this->email,
+//            'password' => $this->password,
+//            'pseudo' => $this->pseudo,
+//            'image' => $this->image,
+//            'imageFile' => $this->imageFile,
+//            'createdAt' => $this->createdAt,
+//            'userComments' => $this->userComments,
+//            'roles' => $this->roles,
 
 
-        return $this;
-    }
+
+
+//        'id' => $this->id,
+//            'email' => $this->email,
+//            'password' => $this->password,
+//            'pseudo' => $this->pseudo,
+//            'image' => $this->image,
+//            'imageFile' => $this->imageFile,
+//            'createdAt' => $this->createdAt,
+//            'userComments' => $this->userComments,
+//            'roles' => $this->roles,
+
+//    }
+//
+//    public function unserialize($serialized)
+//    {
+//        $this->id = $serialized['id'];
+//        $this->email = $serialized['email'];
+//        $this->password = $serialized['password'];
+//        $this->pseudo = $serialized['pseudo'];
+//        $this->image = $serialized['image'];
+//        $this->imageFile = $serialized['imageFile'];
+//        $this->createdAt = $serialized['createdAt'];
+//        $this->userComments = $serialized['userComments'];
+//        $this->roles = $serialized['roles'];
+//
+//        return $this;
+//        list($this->id) = \json_decode($serialized);
+//    }
 
 }
