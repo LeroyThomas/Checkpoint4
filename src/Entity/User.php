@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Serializable;
+//use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 //use Vich\UploaderBundle\Entity\File;
 use Symfony\Component\HttpFoundation\File\File;
@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\Ignore;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @Vich\Uploadable
  */
-class User implements UserInterface, Serializable
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -248,15 +248,31 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function serialize()
+    public function serialize(): array
     {
-        $this->profileImage = base64_encode($this->imageFile);
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password,
+            'pseudo' => $this->pseudo,
+            'image' => $this->image,
+            'imageFile' => $this->imageFile,
+            'createdAt' => $this->createdAt
+        ];
     }
 
     public function unserialize($serialized)
     {
-        $this->profileImage = base64_decode($this->imageFile);
+        $this->id = $serialized['id'];
+        $this->email = $serialized['email'];
+        $this->password = $serialized['password'];
+        $this->pseudo = $serialized['pseudo'];
+        $this->image = $serialized['image'];
+        $this->imageFile = $serialized['imageFile'];
+        $this->createdAt = $serialized['createdAt'];
 
+
+        return $this;
     }
 
 }

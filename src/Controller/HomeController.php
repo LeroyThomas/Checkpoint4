@@ -31,39 +31,41 @@ class HomeController extends AbstractController
         GuardAuthenticatorHandler $guardAuthenticatorHandler,
         LoginFormAuthenticator $authenticator): Response
     {
-//        $error = $authenticationUtils->getLastAuthenticationError();
-//        // last username entered by the user
-//        $lastUsername = $authenticationUtils->getLastUsername();
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-//        $user = new User();
-//        $form = $this->createForm(UserType::class, $user);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $user->setPassword(
-//                $passwordEncoder->encodePassword(
-//                    $user,
-//                    $form->get('password')->getData()
-//                )
-//            );
-//            $user->setRoles(['ROLE_CONTRIBUTOR']);
-//
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($user);
-//            $entityManager->flush();
-//
-//            return $guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
-//                $user,
-//                $request,
-//                $authenticator,
-//                'main'
-//            );
-//        }
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $user->setRoles(['ROLE_CONTRIBUTOR']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+        }
 
         return $this->render('home/index.html.twig', [
-//            'last_username' => $lastUsername,
-//            'error' => $error,
-//            "form" => $form->createView(),
+            'last_username' => $lastUsername,
+            'error' => $error,
+            "form" => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout()
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
