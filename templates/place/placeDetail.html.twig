@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Incroyables !{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-vert">
+        <img src="{{ asset('build/images/logoAmphore.svg') }}" width="100px" height="74px" alt="logo"/>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('home') }}">Home </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('place_index') }}">Lieux<span class="sr-only">(current)</span></a>
+                </li>
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <div class="dropdown" >
+                            <button class="btn btn-bleuOze dropdown-toggle" style="color: black" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ app.user.email }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="media">
+        <div class="card" style="width: 40rem;">
+            <img class="align-self-start mr-3 film-poster" src="{{ place.picture }}" alt="{{ place.title }} " style="max-width: 635px">
+            <img class="align-self-start mr-3 film-poster" src="{{ asset('uploads/images/'~ place.picture) }}" alt="{{ place.title }} " style="max-width: 635px">
+
+            <div class="media-body">
+                <h2 class="mt-0">  {{ place.title }} </h2>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ place.description}}</p>
+            </div>
+
+        </div>
+    <div class="comment">
+        <div class="media-body" id="addComment">
+            <br>
+
+            {{ form_start(form) }}
+            <div class="commentName">
+                <div class="commentPlace">
+                    {{ form_row(form.text, {'label': 'Ajouter un Commentaire', 'placeholder':'Ici , la'}) }}
+                </div>
+                <div>
+                    {{ form_row(form.name, {'label': 'Ptite Signature'}) }}
+                </div>
+            </div>
+            <button class="btn btn-lg btn-orange">{{ button_label|default('Publie') }}</button>
+            {{ form_end(form) }}
+        </div>
+        <div id="commentShow">
+        {% for comment in place.comments|reverse %}
+            <div class="card" id="commentUnit">
+                <div class="textComment">
+                    <p> {{ comment.text }} </p>
+                </div>
+                <div class="authorComment">
+                    <h5>Auteur : {{ comment.name}}</h5>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

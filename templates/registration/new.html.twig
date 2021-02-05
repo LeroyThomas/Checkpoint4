@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Création de compte{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-vert">
+        <img src="{{ asset('build/images/logoAmphore.svg') }}" width="100px" height="74px" alt="logo"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('place_index') }}">Lieux</a>
+                </li>
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <div class="dropdown" >
+                            <button class="btn btn-bleuOze dropdown-toggle" style="color: black" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ app.user.email }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <h2 id="titleConnect">C'est parti, créer ton compte</h2>
+    <div class="formInscription">
+        {{ form_start(form) }}
+        {{ form_row(form.email, {'label': 'Email'}) }}
+        {{ form_row(form.password, {'label': 'Mot de Passe'}) }}
+        {{ form_row(form.pseudo, {'label': 'Pseudo'}) }}
+        {{ form_row(form.citation, {'label': 'Citation'}) }}
+        <input type='submit' value='Inscription'>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

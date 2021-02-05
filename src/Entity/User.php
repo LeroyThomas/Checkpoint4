@@ -6,10 +6,20 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+//use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
+//use Vich\UploaderBundle\Entity\File;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Vich\Uploadable
  */
 class User implements UserInterface
 {
@@ -40,6 +50,38 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
      */
     private $userComments;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="string", length=400, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="user_images", fileNameProperty="image")
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="user", cascade={"persist", "remove"})
+     * @var Profil
+     */
+    private $profil ;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $citation;
 
     public function __construct()
     {
@@ -153,4 +195,121 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     * @return $this
+     */
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     * @Ignore()
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile) {
+            $this->createdAt = new DateTime('now');
+        }
+
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+//    public function serialize()
+//    {
+//       return serialize(array(
+//            $this->id,
+//            $this->email,
+//            $this->password,
+//            $this->pseudo,
+//            $this->image,
+//            $this->imageFile,
+//            $this->createdAt,
+//            $this->userComments,
+//            $this->roles,
+////           $this->salt,
+//    ));
+//    }
+//
+//    public function unserialize($serialized)
+//    {
+//        list (
+//        $this->id,
+//        $this->email,
+//        $this->password,
+//
+//            ) = $this->unserialize($serialized, array('allowed_classes' => false));
+//    }
+
+public function getProfil(): ?Profil
+{
+    return $this->profil;
+}
+
+public function setProfil(?Profil $profil): self
+{
+    $this->profil = $profil;
+    if ($profil->getUser() !== $this) {
+        $profil->setUser($this);
+    }
+    return $this;
+}
+
+public function getCitation(): ?string
+{
+    return $this->citation;
+}
+
+public function setCitation(?string $citation): self
+{
+    $this->citation = $citation;
+
+    return $this;
+}
+
 }

@@ -37,6 +37,16 @@ class Comment
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime('now');
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +96,18 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
