@@ -35,6 +35,8 @@
     <div class="media">
         <div class="card" style="width: 40rem;">
             <img class="align-self-start mr-3 film-poster" src="{{ place.picture }}" alt="{{ place.title }} " style="max-width: 635px">
+            <img class="align-self-start mr-3 film-poster" src="{{ asset('uploads/images/'~ place.picture) }}" alt="{{ place.title }} " style="max-width: 635px">
+
             <div class="media-body">
                 <h2 class="mt-0">  {{ place.title }} </h2>
             </div>
@@ -48,7 +50,14 @@
             <br>
 
             {{ form_start(form) }}
-            {{ form_row(form.text, {'label': 'Ajouter un Commentaire', 'placeholder':'Ici , la'}) }}
+            <div class="commentName">
+                <div class="commentPlace">
+                    {{ form_row(form.text, {'label': 'Ajouter un Commentaire', 'placeholder':'Ici , la'}) }}
+                </div>
+                <div>
+                    {{ form_row(form.name, {'label': 'Ptite Signature'}) }}
+                </div>
+            </div>
             <button class="btn btn-lg btn-orange">{{ button_label|default('Publie') }}</button>
             {{ form_end(form) }}
         </div>
@@ -59,7 +68,7 @@
                     <p> {{ comment.text }} </p>
                 </div>
                 <div class="authorComment">
-                    <h5>Auteur : {{ app.user.pseudo }}</h5>
+                    <h5>Auteur : {{ comment.name}}</h5>
                 </div>
             </div>
         {% endfor %}

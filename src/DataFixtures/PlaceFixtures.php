@@ -4,8 +4,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Place;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
+
 
 class PlaceFixtures extends Fixture
 {
@@ -31,12 +34,17 @@ class PlaceFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $faker  =  Faker\Factory::create('fr_FR');
+
         $i = 0;
         foreach (self::PLACES as $title => $data) {
             $place = new Place();
             $place->setTitle($title);
             $place->setDescription($data['description']);
             $place->setPicture($data['picture']);
+            $place->setCreatedAt(
+                $faker->dateTimebetween(new DateTime('now'), '2023-00-00 00:00:00')
+            );
             $manager->persist($place);
             $this->addReference('place_'.($i +1), $place);
             $i ++;

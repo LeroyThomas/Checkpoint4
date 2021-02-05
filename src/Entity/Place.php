@@ -13,6 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=PlaceRepository::class)
+ * @Vich\Uploadable
  */
 class Place
 {
@@ -39,7 +40,7 @@ class Place
     private $picture;
 
     /**
-     * @Vich\UploadableField(mapping="user_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="user_images", fileNameProperty="picture")
      * @var File|null
      */
     private $pictureFile;

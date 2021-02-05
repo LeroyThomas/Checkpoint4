@@ -37,7 +37,8 @@
             <div class="card " id="place" style="width: 18rem;">
                 <div class="card-body" id="cardPictureText">
                     <h5 class="card-title">{{ place.title }}</h5>
-                    <img class="card-img-top" src="{{ place.picture }}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ asset('uploads/images/'~ place.picture) }}" >
+                    <img class="card-img-top" src="{{ place.picture }}" >
                     <div class="card-body">
                         <p class="card-text">{{ place.description }}</p>
                     </div>

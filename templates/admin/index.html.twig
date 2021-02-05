@@ -3,11 +3,16 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.title, {'label': 'Pseudo'}) }}
-    {{ form_row(form.description, {'label': 'Citation'}) }}
-    {{ form_row(form.pictureFile, {'label': 'Image de profil'}) }}
-    <input type='submit' value='Amazing'>
-    {{ form_end(form) }}
-    {{ form_end(form) }}
+    <div class="formAdmin">
+        <h2>Admin Big boss</h2>
+        <h5>Ajoute un lieu incroyable</h5>
+        {{ form_start(form) }}
+        {{ form_row(form.title, {'label': 'Titre'}) }}
+        {{ form_row(form.description, {'label': 'Description'}) }}
+        {{ form_row(form.pictureFile, {'label': 'Image du lieu'}) }}
+        <input type='submit' value='Publier'>
+        {{ form_end(form) }}
+        {{ form_end(form) }}
+    </div>
+    <a  href="{{ path('place_index') }}" class="btn btn-rouge">Lieux </a>
 {% endblock %}

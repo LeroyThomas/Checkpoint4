@@ -115,8 +115,20 @@ h1 {
         margin: auto;
     }
 
+    .formAdmin {
+        width: 50%;
+      margin: auto;
+    }
 
+    .commentName {
+        display: flex;
+        justify-content: space-between;
+    }
 
+    .commentPlace {
+        flex: 2;
+        margin-right: 10px;
+    }
 }
 
 
